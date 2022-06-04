@@ -1,0 +1,26 @@
+name: Test
+on: [push]
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        php: ["8.0", "8.1"]
+    name: PHP ${{ matrix.php }} test on ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+        env:
+          fail-fast: true
+      - name: Install dependencies
+        run: composer install --no-progress --classmap-authoritative --ignore-platform-reqs
+      - name: Test ECS
+        run: vendor/bin/ecs --config='.ecs/ecs.php' check test.php --fix
+

@@ -1,0 +1,8 @@
+{
+    "name": "rodolfo/ecs-failure-10.2",
+    "description": "Showcases failures in symplify/easy-coding-standard",
+    "license": "MIT",
+    "require-dev": {
+        "symplify/easy-coding-standard": "^10.2"
+    }
+}
